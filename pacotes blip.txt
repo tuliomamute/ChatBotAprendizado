@@ -1,0 +1,11 @@
+Install-Package Takenet.MessagingHub.Client.WebTemplate
+Install-Package Takenet.MessagingHub.Client.Template
+
+---------------------------------------------------
+Testando o Chatbot
+
+1 - Suba o chatbot pelo visual studio
+2 - Acesse a aba "Publicações"
+3 - Na opção Blip Chat, uma tela será aberta
+4 - Vá até a seção Blip Chat URL
+Após aberto o chat, você poderá conversar com o bot
