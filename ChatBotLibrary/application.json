@@ -1,0 +1,21 @@
+﻿{
+  "identifier": "chatbotaprendizado",
+  "accessKey": "dk9yOVlyOTFTVHA4MnNUajMzbFQ=",
+  "messageReceivers": [
+    {
+      "type": "PlainTextMessageReceiver",
+      "content": "ping",
+      "mediaType": "text/plain"
+    },
+    {
+      "type": "DataMessageReceiver",
+      "content": "^(data de hoje|data atual|data)$",
+      "mediaType": "text/plain"
+    }
+  ],
+  "settings": {
+    "setting1": "value1"
+  },
+  "startupType": "Startup",
+  "schemaVersion": 2
+}
