@@ -31,6 +31,14 @@
           ]
         }
       }
+    },
+    {
+      "mediaType": "text/plain",
+      "content": "^(Buscar Detalhes do Deputado||1)$",
+      "response": {
+        "mediaType": "text/plain",
+        "plainContent": "Para buscar um deputado, Digite o nome do deputado"
+      }
     }
   ],
   "settings": {
