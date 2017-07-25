@@ -13,11 +13,16 @@ namespace Business
 {
     public class DeputadosController
     {
+        public List<Models.Deputado> ListaDeputados { get; private set; }
+        public DeputadosController()
+        {
+            ListaDeputados = RetornaListaDeputados();
+        }
         /// <summary>
         /// Método que carregará a lista de Deputados para o Bot poder manipula-la
         /// </summary>
         /// <returns></returns>
-        public List<Models.Deputado> RetornaListaDeputados()
+        private List<Models.Deputado> RetornaListaDeputados()
         {
             string json = "";
             XmlDocument doc = null;
@@ -38,7 +43,7 @@ namespace Business
             }
             finally
             {
-                if (doc!=null)
+                if (doc != null)
                     doc = null;
 
                 if (deputadosRoot != null)
@@ -47,5 +52,14 @@ namespace Business
             }
 
         }
+
+        public Models.Deputado RetornaDeputadoEscolhido(string NomeDeputado)
+        {
+            return ListaDeputados.Where(x => x.nomeParlamentar.ToUpper().Trim() == NomeDeputado.ToUpper().Trim()).FirstOrDefault();
+        }
+
     }
+
+
+
 }
