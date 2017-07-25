@@ -6,6 +6,7 @@ using Takenet.MessagingHub.Client;
 using Takenet.MessagingHub.Client.Listener;
 using Takenet.MessagingHub.Client.Sender;
 using System.Diagnostics;
+using Business;
 
 namespace ChatBotLibrary
 {
@@ -16,6 +17,9 @@ namespace ChatBotLibrary
         public PlainTextMessageReceiver(IMessagingHubSender sender)
         {
             _sender = sender;
+
+            DeputadosController dep = new DeputadosController();
+            var lista = dep.RetornaListaDeputados();
         }
 
         public async Task ReceiveAsync(Message message, CancellationToken cancellationToken)

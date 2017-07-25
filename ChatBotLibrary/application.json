@@ -11,6 +11,26 @@
       "type": "DataMessageReceiver",
       "content": "^(data de hoje|data atual|data)$",
       "mediaType": "text/plain"
+    },
+    {
+      "mediaType": "text/plain",
+      "content": "Cadê o Deputado!",
+      "response": {
+        "mediaType": "application/vnd.lime.select+json",
+        "jsonContent": {
+          "text": "Olá, seja bem vindo ao serviço de Identificação de Atuação de Deputados. Através de nossa conversa, você poderá saber em que seu deputado(a) preferido está atuando. Abaixo você terá a lista das opções em que posso lhe ajudar!",
+          "options": [
+            {
+              "order": 1,
+              "text": "Buscar Detalhes do Deputado"
+            },
+            {
+              "order": 2,
+              "text": "Votações do Deputado"
+            }
+          ]
+        }
+      }
     }
   ],
   "settings": {
