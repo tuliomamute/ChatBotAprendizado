@@ -20,6 +20,7 @@ namespace ChatBotLibrary
         }
         public Task ReceiveAsync(Message envelope, CancellationToken cancellationToken = default(CancellationToken))
         {
+            //Implementar busca das despesas por Mês
             throw new NotImplementedException();
         }
     }
