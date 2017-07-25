@@ -25,7 +25,14 @@ namespace ChatBotLibrary
         public async Task ReceiveAsync(Message message, CancellationToken cancellationToken)
         {
             Trace.TraceInformation($"From: {message.From} \tContent: {message.Content}");
-            await _sender.SendMessageAsync("Pong!", message.From, cancellationToken);
+            await _sender.SendMessageAsync("Aguarde, estamos pesquisando a respeito do deputado escolhido :)", message.From, cancellationToken);
+            Thread.Sleep(5000);
+
+            await _sender.SendMessageAsync("Só mais um pouquinho e estará pronto! :)", message.From, cancellationToken);
+            Thread.Sleep(5000);
+
+            await _sender.SendMessageAsync("Pronto! Os resultados serão mostrados em breve! :)", message.From, cancellationToken);
+
         }
     }
 }

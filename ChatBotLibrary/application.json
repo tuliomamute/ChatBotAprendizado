@@ -4,7 +4,7 @@
   "messageReceivers": [
     {
       "type": "PlainTextMessageReceiver",
-      "content": "ping",
+      "content": "^(Dep\\:\\s*([a-zA-Z0\\s]*))$",
       "mediaType": "text/plain"
     },
     {
@@ -16,28 +16,8 @@
       "mediaType": "text/plain",
       "content": "Cadê o Deputado!",
       "response": {
-        "mediaType": "application/vnd.lime.select+json",
-        "jsonContent": {
-          "text": "Olá, seja bem vindo ao serviço de Identificação de Atuação de Deputados. Através de nossa conversa, você poderá saber em que seu deputado(a) preferido está atuando. Abaixo você terá a lista das opções em que posso lhe ajudar!",
-          "options": [
-            {
-              "order": 1,
-              "text": "Buscar Detalhes do Deputado"
-            },
-            {
-              "order": 2,
-              "text": "Votações do Deputado"
-            }
-          ]
-        }
-      }
-    },
-    {
-      "mediaType": "text/plain",
-      "content": "^(Buscar Detalhes do Deputado||1)$",
-      "response": {
         "mediaType": "text/plain",
-        "plainContent": "Para buscar um deputado, Digite o nome do deputado"
+        "plainContent": "Olá! Seja bem vindo ao serviço de Identificação de Atuação de Deputados. Através de nossa conversa, você poderá saber em que seu deputado(a) preferido está atuando. Para Começarmos, digite o nome do deputado para que eu possa verificar :)"
       }
     }
   ],
