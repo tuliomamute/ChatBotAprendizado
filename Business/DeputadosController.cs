@@ -53,9 +53,16 @@ namespace Business
 
         }
 
+        /// <summary>
+        /// Busca na lista de deputados, a partir do nome digitado
+        /// </summary>
+        /// <param name="NomeDeputado">Nome do deputado escolhido</param>
+        /// <returns>Primeiro objeto encontrado que atende as necessidades</returns>
         public Models.Deputado RetornaDeputadoEscolhido(string NomeDeputado)
         {
-            return ListaDeputados.Where(x => x.nomeParlamentar.ToUpper().Trim() == NomeDeputado.ToUpper().Trim()).FirstOrDefault();
+            return ListaDeputados
+                .Where(x => x.nomeParlamentar.ToUpper().Trim() == NomeDeputado.ToUpper().Trim() || x.nome.ToUpper().Trim() == NomeDeputado.ToUpper().Trim())
+                .FirstOrDefault();
         }
 
     }

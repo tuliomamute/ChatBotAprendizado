@@ -21,6 +21,11 @@
       }
     },
     {
+      "type": "ExpenseCongressManDataReceive",
+      "mediaType": "text/plain",
+      "content": "^(Despesas do Deputado|2)$"
+    },
+    {
       "priority": "100",
       "response": {
         "mediaType": "text/plain",

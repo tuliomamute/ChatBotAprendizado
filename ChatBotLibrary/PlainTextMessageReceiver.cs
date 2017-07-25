@@ -8,6 +8,7 @@ using Takenet.MessagingHub.Client.Sender;
 using System.Diagnostics;
 using Business;
 using Lime.Messaging.Contents;
+using Models;
 
 namespace ChatBotLibrary
 {
@@ -27,7 +28,9 @@ namespace ChatBotLibrary
             Trace.TraceInformation($"From: {message.From} \tContent: {message.Content}");
             await _sender.SendMessageAsync("Aguarde, estamos pesquisando a respeito do deputado escolhido :)", message.From, cancellationToken);
 
+            //Captura o nome do deputado
             string NomeDeputado = message.Content.ToString().Split(':')[1].Trim();
+
             var document = ProcessaRetorno(NomeDeputado);
 
             if (document == null) await _sender.SendMessageAsync("Não consegui identificar o deputado pesquisado. Poderia digitar o nome dele corretamente?", message.From, cancellationToken);
@@ -40,18 +43,28 @@ namespace ChatBotLibrary
             }
         }
 
+        /// <summary>
+        /// Método que monta o retorno para criação de um objeto de MENU
+        /// </summary>
+        /// <param name="NomeDeputado"></param>
+        /// <returns></returns>
         private DocumentSelect ProcessaRetorno(string NomeDeputado)
         {
             Models.Deputado modelDeputado = dep.RetornaDeputadoEscolhido(NomeDeputado);
 
             if (modelDeputado == null) return null;
 
+            //Armazenagem de deputado escolhido
+            Opcoes.DeputadoEscolhido = modelDeputado;
+
+            //Monta um objeto de Menu, exibindo a foto e o nome do deputado
             var document = new DocumentSelect
             {
                 Header = new DocumentContainer
                 {
                     Value = new MediaLink
                     {
+                        Title = $"DEPUTADO: {modelDeputado.nomeParlamentar}",
                         Text = $"RETRATO DO DEPUTADO {modelDeputado.nomeParlamentar}",
                         Type = MediaType.Parse("image/jpg"),
                         PreviewUri = new Uri(modelDeputado.urlFoto),
