@@ -19,6 +19,13 @@
         "mediaType": "text/plain",
         "plainContent": "Olá! Seja bem vindo ao serviço de Identificação de Atuação de Deputados. Através de nossa conversa, você poderá saber em que seu deputado(a) preferido está atuando. Para Começarmos, digite o nome do deputado para que eu possa verificar :)"
       }
+    },
+    {
+      "priority": "100",
+      "response": {
+        "mediaType": "text/plain",
+        "plainContent": "Ops, não entendi o que você quis dizer. Poderia repetir por favor?"
+      }
     }
   ],
   "settings": {
