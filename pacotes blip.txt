@@ -9,3 +9,12 @@ Testando o Chatbot
 3 - Na opção Blip Chat, uma tela será aberta
 4 - Vá até a seção Blip Chat URL
 Após aberto o chat, você poderá conversar com o bot
+
+---------------------------------------------------
+Integração - WebService Camara dos Deputados
+0 - Url Utilizada: http://www.camara.leg.br/SitCamaraWS/Deputados.asmx
+1 - Na pasta de Solution Items, existe um arquivo mhh.txt
+2 - Nele tem-se o apontamento para o webservice soap
+3 - Para correto funcionamento, coloque-o na pasta bin, de acordo com a configuração do build (Debug ou release)
+4 - Altere a extensão para .exe.config
+

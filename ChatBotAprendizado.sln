@@ -7,6 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatBotLibrary", "ChatBotLi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{831AE717-A131-437F-8185-01A6EB9366EC}"
 	ProjectSection(SolutionItems) = preProject
+		mhh.txt = mhh.txt
 		pacotes blip.txt = pacotes blip.txt
 	EndProjectSection
 EndProject
