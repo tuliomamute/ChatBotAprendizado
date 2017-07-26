@@ -33,7 +33,10 @@ namespace ChatBotLibrary
 
             await _sender.SendMessageAsync($"Estou Calculando os Gastos do Deputado {Opcoes.Instance.DeputadoEscolhido.nomeParlamentar}. Aguarde um pouquinho :)", message.From, cancellationToken);
 
-            string DespesasDeputado = await despesas.BuscarDespesas(Opcoes.Instance.DeputadoEscolhido.ideCadastro);
+            string DespesasDeputado = await despesas.BuscarDespesas();
+
+            await _sender.SendMessageAsync("Opa! Terminei os calculos e já irei exibi-los!", message.From, cancellationToken);
+            Thread.Sleep(2000);
 
             await _sender.SendMessageAsync(DespesasDeputado, message.From, cancellationToken);
 

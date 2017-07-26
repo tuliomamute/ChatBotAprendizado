@@ -18,39 +18,58 @@ namespace Business
         /// </summary>
         /// <param name="idDeputado"></param>
         /// <returns></returns>
-        public async Task<string> BuscarDespesas(string idDeputado)
+        public async Task<string> BuscarDespesas()
         {
-            string PaginaBusca = $"{Opcoes.UrlBaseAPI}/api/v2/deputados/74847/despesas?ano={DateTime.Now.Year}&pagina=1&itens=100";
+            string PaginaBusca = string.Empty;
 
             RootGastos model = null;
             List<Dado> DespesasDeputado = null;
-
-            DespesasDeputado = new List<Dado>();
-
-            do
+            try
             {
-                using (HttpClient client = new HttpClient())
+                PaginaBusca = $"{Opcoes.UrlBaseAPI}/api/v2/deputados/{Opcoes.Instance.DeputadoEscolhido.ideCadastro}/despesas?ano={DateTime.Now.Year}&pagina=1&itens=100";
+                DespesasDeputado = new List<Dado>();
+
+                do
                 {
-                    client.DefaultRequestHeaders.Accept.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                    HttpResponseMessage response = await client.GetAsync(PaginaBusca);
-
-                    if (response.IsSuccessStatusCode)
+                    using (HttpClient client = new HttpClient())
                     {
-                        model = JsonConvert.DeserializeObject<RootGastos>(await response.Content.ReadAsStringAsync());
-                        DespesasDeputado.AddRange(model.dados.ToList());
+                        //Criação dos cabeçalhos da requisição
+                        client.DefaultRequestHeaders.Accept.Clear();
+                        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                        //Pega a Url da ultima página, para saber quando parar de realizar as requisições
-                        PaginaBusca = model.links.Where(x => x.rel == "next").FirstOrDefault()?.href;
+                        HttpResponseMessage response = await client.GetAsync(PaginaBusca);
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            //Deserializa a lista e adiciona os conteudos recuperados a uma lista
+                            model = JsonConvert.DeserializeObject<RootGastos>(await response.Content.ReadAsStringAsync());
+                            DespesasDeputado.AddRange(model.dados.ToList());
+
+                            //Pega a Url da ultima página, para saber quando parar de realizar as requisições
+                            PaginaBusca = model.links.Where(x => x.rel == "next").FirstOrDefault()?.href;
+                        }
                     }
-                }
 
-                //Colocada a condição de parada até que não tenha mais next, ou seja, chegou-se a na ultima página
-            } while (model.links.Where(x => x.rel == "next").Count() > 0);
+                    //Colocada a condição de parada até que não tenha mais next, ou seja, chegou-se a na ultima página
+                } while (model.links.Where(x => x.rel == "next").Count() > 0);
 
+                return MontaRetornoDespesasDeputado(DespesasDeputado);
 
-            return MontaRetornoDespesasDeputado(DespesasDeputado);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (model != null)
+                    model = null;
+
+                if (DespesasDeputado != null)
+                    DespesasDeputado = null;
+
+            }
+
         }
 
         /// <summary>
@@ -60,6 +79,7 @@ namespace Business
         /// <returns></returns>
         private string MontaRetornoDespesasDeputado(List<Dado> despesas)
         {
+            StringBuilder builder = null;
             try
             {
 
@@ -68,18 +88,23 @@ namespace Business
                     .Select(group => new { soma = group.Sum(y => Convert.ToDecimal(y.valorLiquido.Replace(".", ","))), mes = group.Key })
                     .OrderBy(x => x.mes).ToList();
 
-                StringBuilder builder = new StringBuilder();
+                builder = new StringBuilder();
+                builder.AppendLine($"---Despesas do Deputado {Opcoes.Instance.DeputadoEscolhido.nomeParlamentar}---{Environment.NewLine}");
 
                 //Percorre cada Mes para montar o retorno
-                foreach (var item in somaMensal)
-                    builder.AppendLine($"* Mês: {RetornaMesAno(item.mes)} - Valor: R$ {item.soma}{Environment.NewLine}");
+                for (int indice = 0; indice < somaMensal.Count; indice++)
+                    builder.AppendLine($"{indice + 1}) Mês: {RetornaMesAno(somaMensal[indice].mes)} - Valor: R$ {somaMensal[indice].soma}{Environment.NewLine}");
 
                 return builder.ToString();
             }
             catch (Exception ex)
             {
-
                 throw ex;
+            }
+            finally
+            {
+                if (builder != null)
+                    builder = null;
             }
         }
 
