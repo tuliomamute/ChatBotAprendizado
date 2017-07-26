@@ -55,7 +55,7 @@ namespace ChatBotLibrary
             if (modelDeputado == null) return null;
 
             //Armazenagem de deputado escolhido
-            Opcoes.DeputadoEscolhido = modelDeputado;
+            Opcoes.Instance.DeputadoEscolhido = modelDeputado;
 
             //Monta um objeto de Menu, exibindo a foto e o nome do deputado
             var document = new DocumentSelect

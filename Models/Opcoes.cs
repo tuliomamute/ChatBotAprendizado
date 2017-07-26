@@ -6,8 +6,23 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public static class Opcoes
+    public class Opcoes
     {
-        public static Deputado DeputadoEscolhido { get; set; }
+        private Opcoes() { }
+        private static Opcoes _instance = null;
+
+        public static Opcoes Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = new Opcoes();
+
+                return _instance;
+            }
+        }
+
+        public Deputado DeputadoEscolhido { get; set; }
+        public const string UrlBaseAPI = "https://dadosabertos.camara.leg.br";
     }
 }

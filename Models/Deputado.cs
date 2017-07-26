@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Models
 {
 
-    public class Rootobject
+    public class RootDeputados
     {
         public Deputados deputados { get; set; }
     }

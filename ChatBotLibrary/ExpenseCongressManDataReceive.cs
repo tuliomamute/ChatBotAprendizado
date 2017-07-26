@@ -9,27 +9,33 @@ using Takenet.MessagingHub.Client.Listener;
 using Takenet.MessagingHub.Client.Sender;
 using Models;
 using Takenet.MessagingHub.Client;
+using System.Net.Http;
+using Business;
 
 namespace ChatBotLibrary
 {
     public class ExpenseCongressManDataReceive : IMessageReceiver
     {
         private readonly IMessagingHubSender _sender;
-
+        private GastosController despesas;
         public ExpenseCongressManDataReceive(IMessagingHubSender sender)
         {
             _sender = sender;
+            despesas = new GastosController();
         }
         public async Task ReceiveAsync(Message message, CancellationToken cancellationToken = default(CancellationToken))
         {
-            //Implementar busca das despesas por Mês
-            if (Opcoes.DeputadoEscolhido == null)
+            if (Opcoes.Instance.DeputadoEscolhido == null)
             {
                 await _sender.SendMessageAsync("Problema na Armazenagem do Deputado Escolhido!", message.From, cancellationToken);
                 return;
             }
 
-            await _sender.SendMessageAsync($"Estou Calculando os Gastos do Deputado {Opcoes.DeputadoEscolhido.nomeParlamentar}. Aguarde um pouquinho :)", message.From, cancellationToken);
+            await _sender.SendMessageAsync($"Estou Calculando os Gastos do Deputado {Opcoes.Instance.DeputadoEscolhido.nomeParlamentar}. Aguarde um pouquinho :)", message.From, cancellationToken);
+
+            string DespesasDeputado = await despesas.BuscarDespesas(Opcoes.Instance.DeputadoEscolhido.ideCadastro);
+
+            await _sender.SendMessageAsync(DespesasDeputado, message.From, cancellationToken);
 
         }
     }

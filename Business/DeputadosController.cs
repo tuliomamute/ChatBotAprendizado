@@ -26,7 +26,7 @@ namespace Business
         {
             string json = "";
             XmlDocument doc = null;
-            Models.Rootobject deputadosRoot = null;
+            Models.RootDeputados deputadosRoot = null;
 
             try
             {
@@ -38,7 +38,7 @@ namespace Business
                 json = JsonConvert.SerializeXmlNode(doc);
                 json = json.Replace("\"@xmlns\":\"\",", string.Empty);
 
-                deputadosRoot = JsonConvert.DeserializeObject<Models.Rootobject>(json);
+                deputadosRoot = JsonConvert.DeserializeObject<Models.RootDeputados>(json);
                 return deputadosRoot.deputados.deputado.ToList();
             }
             finally
