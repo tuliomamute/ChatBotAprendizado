@@ -72,7 +72,7 @@ namespace Business
 
                 //Percorre cada Mes para montar o retorno
                 foreach (var item in somaMensal)
-                    builder.AppendLine($"* Mês: {RetornaMesAno(item.mes)} - Valor: R$ {item.soma}");
+                    builder.AppendLine($"* Mês: {RetornaMesAno(item.mes)} - Valor: R$ {item.soma}{Environment.NewLine}");
 
                 return builder.ToString();
             }
