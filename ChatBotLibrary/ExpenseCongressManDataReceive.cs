@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Lime.Protocol;
 using Takenet.MessagingHub.Client.Listener;
 using Takenet.MessagingHub.Client.Sender;
+using Models;
+using Takenet.MessagingHub.Client;
 
 namespace ChatBotLibrary
 {
@@ -18,10 +20,17 @@ namespace ChatBotLibrary
         {
             _sender = sender;
         }
-        public Task ReceiveAsync(Message envelope, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task ReceiveAsync(Message message, CancellationToken cancellationToken = default(CancellationToken))
         {
             //Implementar busca das despesas por Mês
-            throw new NotImplementedException();
+            if (Opcoes.DeputadoEscolhido == null)
+            {
+                await _sender.SendMessageAsync("Problema na Armazenagem do Deputado Escolhido!", message.From, cancellationToken);
+                return;
+            }
+
+            await _sender.SendMessageAsync($"Estou Calculando os Gastos do Deputado {Opcoes.DeputadoEscolhido.nomeParlamentar}. Aguarde um pouquinho :)", message.From, cancellationToken);
+
         }
     }
 }
