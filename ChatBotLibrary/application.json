@@ -3,6 +3,11 @@
   "accessKey": "dk9yOVlyOTFTVHA4MnNUajMzbFQ=",
   "messageReceivers": [
     {
+      "type": "TestReceiver",
+      "content": "teste",
+      "mediaType": "text/plain"
+    },
+    {
       "type": "PlainTextMessageReceiver",
       "content": "^(Dep\\:\\s*([a-zA-Z0\\s]*))$",
       "mediaType": "text/plain"
